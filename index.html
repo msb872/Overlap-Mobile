@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -6,96 +7,53 @@
   <title>Overlap% (mobile)</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap');
-   
-    body {
-      font-family: 'Vazirmatn', Tahoma, sans-serif;
-      background: #f0f4f8;
-      margin: 0;
-      padding: 12px;
-      color: #222;
-      line-height: 1.5;
-    }
-    header {
-      background: #0077b6;
-      color: white;
-      padding: 14px 10px;
-      border-radius: 12px;
-      text-align: center;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(0,119,182,0.3);
-    }
+    body { font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f0f4f8; margin: 0; padding: 12px; color: #222; line-height: 1.5; }
+    header { background: #0077b6; color: white; padding: 14px 10px; border-radius: 12px; text-align: center; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,119,182,0.3); }
     h1 { margin: 0; font-size: 1.1rem; }
     .controls, .input-grid { margin-bottom: 16px; }
-    .input-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .input-group {
-      background: white;
-      padding: 12px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+    .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .input-group { background: white; padding: 12px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
     label { font-size: 13px; margin-bottom: 6px; color: #444; display: block; }
-    input[type="number"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 18px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      text-align: center;
-    }
-    button {
-      padding: 12px 16px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-    }
+    input[type="number"] { width: 100%; padding: 12px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; text-align: center; }
+    button { padding: 12px 16px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; }
     .btn-primary { background: #28a745; color: white; }
     .btn-secondary { background: #0045b6; color: white; }
-    #result {
-      background: white;
-      padding: 18px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      margin: 20px 0;
-      text-align: center;
-    }
+    #result { background: white; padding: 18px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 20px 0; text-align: center; }
     .value { font-size: 2.4rem; font-weight: 700; color: #0077b6; margin: 8px 0; }
     .good { color: #28a745; }
     .bad { color: #dc3545; }
-    .warnings { background: #fff3cd; padding: 14px; border-radius: 10px; margin: 16px 0; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-top: 20px;
-      font-size: 14px;
-    }
-    th, td {
-      padding: 10px 8px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-top: 20px; font-size: 14px; }
+    th, td { padding: 10px 8px; text-align: center; border-bottom: 1px solid #eee; }
     th { background: #0077b6; color: white; }
-    .delete-btn {
-      background: #dc3545;
-      color: white;
-      padding: 4px 8px;
-      font-size: 12px;
-    }
-    .footer-btns {
-      display: flex;
-      gap: 8px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
+    .delete-btn { background: #dc3545; color: white; padding: 4px 8px; font-size: 12px; }
+    .footer-btns { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
     .footer-btns button { flex: 1; padding: 14px; font-size: 16px; }
+
+    /* Print-specific Styles */
+    .print-only { display: none; }
+    @media print {
+      body { background: white; padding: 20px; }
+      /* اضافه شدن btn-primary به لیست مخفی‌ها */
+      header, .controls, .input-grid, #result, .footer-btns, .delete-btn, .btn-primary { 
+        display: none !important; 
+      }
+      #tableContainer { display: block !important; }
+      table { border: 1px solid #000; width: 100%; border-collapse: collapse; }
+      
+      .print-only { display: block !important; text-align: center; margin: 20px 0; }
+      
+      .footer-print { 
+        position: fixed; 
+        bottom: 0; 
+        left: 0; 
+        width: 100%; 
+        text-align: center; 
+        font-weight: bold; 
+        padding: 10px 0;
+        border-top: 1px solid #ccc;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -103,12 +61,14 @@
   <h1>محاسبه درصد درگیری</h1>
   <p style="margin:4px 0 0;">Mosayeb Khani</p>
 </header>
+
 <div class="controls">
   <select id="unitSelect">
     <option value="thou">0.001 اینچ</option>
     <option value="mm">میلیمتر</option>
   </select>
 </div>
+
 <div class="input-grid">
   <div class="input-group"><label>طول دوخت (SL)</label><input type="number" id="length" step="0.01"></div>
   <div class="input-group"><label>ضخامت دوخت (ST)</label><input type="number" id="seamThickness" step="0.01"></div>
@@ -117,9 +77,17 @@
   <div class="input-group"><label>ضخامت سر (Te)</label><input type="number" id="headThickness" step="0.01" ></div>
   <div class="input-group"><label>ضخامت بدنه (Tb)</label><input type="number" id="bodyThickness" step="0.01" ></div>
 </div>
+
 <button onclick="calculate()" class="btn-primary" style="width:100%; padding:16px; font-size:18px;">محاسبه</button>
+
 <div id="result" style="display:none;"></div>
+
 <div id="tableContainer" style="display:none;">
+  <div class="print-only">
+    <h3>گزارش محاسبات</h3>
+    <p>تاریخ: <span id="printDate"></span></p>
+  </div>
+  
   <h3 style="margin:20px 0 10px;">نتایج ذخیره‌شده</h3>
   <table id="resultsTable">
     <thead>
@@ -135,19 +103,30 @@
     </thead>
     <tbody></tbody>
   </table>
+  
+  <div class="print-only footer-print">طراحی توسط: Mosayeb Khani  تماس: 09173206052</div>
 </div>
+
+
+
 <div class="footer-btns">
   <button onclick="resetForm()" class="btn-secondary">پاک کردن فرم</button>
-  <button onclick="shareAll()" id="shareAllBtn" style="display:none;" class="btn-primary"> اشتراک‌گذاری جدول</button>
-  <button onclick="window.print()"> پرینت</button>
+  <button onclick="shareAll()" id="shareAllBtn" style="display:none;" class="btn-primary">اشتراک‌گذاری جدول</button>
+  <button onclick="triggerPrint()" class="btn-primary" style="background: #6c127d; color: white;">پرینت گزارش</button>
 </div>
+
 <script>
   let results = JSON.parse(localStorage.getItem('overlapResults')) || [];
   const LIMITS = { CH_MIN: 70, BH_MIN: 70, DIFF_MAX: 7.8, FREE_MAX: 7.5, OL_MIN: 45 };
-  function toThou(mm) { return mm / 0.0254; }
-  function saveToLocal() {
-    localStorage.setItem('overlapResults', JSON.stringify(results));
+
+  function triggerPrint() {
+      document.getElementById('printDate').textContent = new Date().toLocaleDateString('fa-IR');
+      window.print();
   }
+
+  function toThou(mm) { return mm / 0.0254; }
+  function saveToLocal() { localStorage.setItem('overlapResults', JSON.stringify(results)); }
+  
   function renderTable() {
     const tbody = document.querySelector('#resultsTable tbody');
     tbody.innerHTML = '';
@@ -167,6 +146,7 @@
       tbody.appendChild(tr);
     });
   }
+
   function calculate() {
     const unit = document.getElementById('unitSelect').value;
     let L = parseFloat(document.getElementById('length').value);
@@ -175,14 +155,8 @@
     let BH = parseFloat(document.getElementById('bodyHook').value);
     let Te = parseFloat(document.getElementById('headThickness').value);
     let Tb = parseFloat(document.getElementById('bodyThickness').value);
-    if ([L, ST, CH, BH, Te, Tb].some(v => isNaN(v) || v <= 0)) {
-      alert('لطفاً همه مقادیر را وارد کنید');
-      return;
-    }
-    if (unit === 'mm') {
-      L = toThou(L); ST = toThou(ST); CH = toThou(CH);
-      BH = toThou(BH); Te = toThou(Te); Tb = toThou(Tb);
-    }
+    if ([L, ST, CH, BH, Te, Tb].some(v => isNaN(v) || v <= 0)) { alert('لطفاً همه مقادیر را وارد کنید'); return; }
+    if (unit === 'mm') { L = toThou(L); ST = toThou(ST); CH = toThou(CH); BH = toThou(BH); Te = toThou(Te); Tb = toThou(Tb); }
     const diff = Math.abs(CH - BH).toFixed(2);
     const free = Math.abs(ST - (3 * Te + 2 * Tb)).toFixed(2);
     const denom = L - (2.2 * Te + 1.1 * Tb);
@@ -195,85 +169,48 @@
         واحد: <strong>${unit === 'mm' ? 'میلیمتر' : '0.001 اینچ'}</strong>
       </div>
       <button onclick="saveCurrentResult(${overlap}, ${diff}, ${free}, ${CH.toFixed(1)}, ${BH.toFixed(1)})"
-              class="btn-primary" style="margin-top:16px; width:100%;"> ذخیره این نتیجه</button>
+              class="btn-primary" style="margin-top:16px; width:100%;">ذخیره این نتیجه</button>
     `;
     document.getElementById('result').innerHTML = resultHTML;
     document.getElementById('result').style.display = 'block';
   }
+
   function saveCurrentResult(ol, diff, free, ch, bh) {
-    let name = prompt('نام این نمونه را وارد کنید (مثلاً p1، نمونه A، قوطی ۱):', `p${results.length + 1}`);
+    let name = prompt('نام این نمونه را وارد کنید:', `p${results.length + 1}`);
     if (!name) name = `p${results.length + 1}`;
-    results.push({
-      name: name,
-      ol: parseFloat(ol),
-      diff: parseFloat(diff),
-      free: parseFloat(free),
-      ch: parseFloat(ch),
-      bh: parseFloat(bh),
-      timestamp: new Date().toLocaleString('fa-IR')
-    });
-    saveToLocal();
-    renderTable();
-    alert(' نتیجه با موفقیت ذخیره شد');
-    
-    // New behavior: Clear most inputs except Te and Tb, and focus on length
-    clearInputsAfterSave();
+    results.push({ name: name, ol: parseFloat(ol), diff: parseFloat(diff), free: parseFloat(free), ch: parseFloat(ch), bh: parseFloat(bh), timestamp: new Date().toLocaleString('fa-IR') });
+    saveToLocal(); renderTable(); alert('نتیجه با موفقیت ذخیره شد'); clearInputsAfterSave();
   }
+
   function clearInputsAfterSave() {
     document.getElementById('length').value = '';
     document.getElementById('seamThickness').value = '';
     document.getElementById('coverHook').value = '';
     document.getElementById('bodyHook').value = '';
-    // Keep headThickness and bodyThickness
-    
-    // Focus on length input
-    const lengthInput = document.getElementById('length');
-    lengthInput.focus();
-    lengthInput.select();
+    document.getElementById('length').focus();
   }
+
   function deleteResult(index) {
-    if (confirm('این نتیجه حذف شود؟')) {
-      results.splice(index, 1);
-      saveToLocal();
-      renderTable();
-    }
+    if (confirm('این نتیجه حذف شود؟')) { results.splice(index, 1); saveToLocal(); renderTable(); }
   }
+
   async function shareAll() {
     if (results.length === 0) return;
-    let text = ` گزارش درصد درگیری دربندی\n\n`;
-    results.forEach(r => {
-      text += `${r.name}:\n`;
-      text += ` OL% = ${r.ol}%\n`;
-      text += ` CH = ${r.ch} | BH = ${r.bh}\n`;
-      text += ` Diff = ${r.diff} | Free = ${r.free}\n\n`;
-    });
-    text += `تعداد نمونه: ${results.length}\n`;
-    text += `اشتراک‌گذاری شده از ابزار موبایل`;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: 'گزارش درصد درگیری', text: text });
-      } catch {
-        copyToClipboard(text);
-      }
-    } else {
-      copyToClipboard(text);
-    }
+    let text = `گزارش درصد درگیری دربندی\n\n`;
+    results.forEach(r => { text += `${r.name}:\n OL% = ${r.ol}%\n CH = ${r.ch} | BH = ${r.bh}\n Diff = ${r.diff} | Free = ${r.free}\n\n`; });
+    text += `تعداد نمونه: ${results.length}\nاشتراک‌گذاری شده از ابزار موبایل`;
+    if (navigator.share) { try { await navigator.share({ title: 'گزارش درصد درگیری', text: text }); } catch { copyToClipboard(text); } } else { copyToClipboard(text); }
   }
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert(' جدول در کلیپ‌بورد کپی شد');
-    });
-  }
+
+  function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { alert('جدول در کلیپ‌بورد کپی شد'); }); }
+
   function resetForm() {
-    document.getElementById('length').value = '';
-    document.getElementById('seamThickness').value = '';
-    document.getElementById('coverHook').value = '';
-    document.getElementById('bodyHook').value = '';
+    document.getElementById('length').value = ''; document.getElementById('seamThickness').value = '';
+    document.getElementById('coverHook').value = ''; document.getElementById('bodyHook').value = '';
     document.getElementById('result').style.display = 'none';
   }
-  // Enter key
+
   document.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
-  // Load saved data
   renderTable();
 </script>
 </body>
