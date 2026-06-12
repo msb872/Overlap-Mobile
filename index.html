@@ -2,217 +2,489 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
- <link rel="icon" type="image/png" href="me.png">
-  <title>Overlap% (mobile)</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap');
-    body { font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f0f4f8; margin: 0; padding: 12px; color: #222; line-height: 1.5; }
-    header { background: #0077b6; color: white; padding: 14px 10px; border-radius: 12px; text-align: center; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,119,182,0.3); }
-    h1 { margin: 0; font-size: 1.1rem; }
-    .controls, .input-grid { margin-bottom: 16px; }
-    .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .input-group { background: white; padding: 12px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-    label { font-size: 13px; margin-bottom: 6px; color: #444; display: block; }
-    input[type="number"] { width: 100%; padding: 12px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; text-align: center; }
-    button { padding: 12px 16px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; }
-    .btn-primary { background: #28a745; color: white; }
-    .btn-secondary { background: #0045b6; color: white; }
-    #result { background: white; padding: 18px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 20px 0; text-align: center; }
-    .value { font-size: 2.4rem; font-weight: 700; color: #0077b6; margin: 8px 0; }
-    .good { color: #28a745; }
-    .bad { color: #dc3545; }
-    table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-top: 20px; font-size: 14px; }
-    th, td { padding: 10px 8px; text-align: center; border-bottom: 1px solid #eee; }
-    th { background: #0077b6; color: white; }
-    .delete-btn { background: #dc3545; color: white; padding: 4px 8px; font-size: 12px; }
-    .footer-btns { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
-    .footer-btns button { flex: 1; padding: 14px; font-size: 16px; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Overlap% - Mosayeb Khani</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
 
-    /* Print-specific Styles */
-    .print-only { display: none; }
-    @media print {
-      body { background: white; padding: 20px; }
-      /* اضافه شدن btn-primary به لیست مخفی‌ها */
-      header, .controls, .input-grid, #result, .footer-btns, .delete-btn, .btn-primary { 
-        display: none !important; 
-      }
-      #tableContainer { display: block !important; }
-      table { border: 1px solid #000; width: 100%; border-collapse: collapse; }
-      
-      .print-only { display: block !important; text-align: center; margin: 20px 0; }
-      
-      .footer-print { 
-        position: fixed; 
-        bottom: 0; 
-        left: 0; 
-        width: 100%; 
-        text-align: center; 
-        font-weight: bold; 
-        padding: 10px 0;
-        border-top: 1px solid #ccc;
-      }
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 10px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .content-wrap {
+    flex: 1;
+  }
+  .header-container {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  .header-main {
+    text-align: center;
+    margin-bottom: 3px;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  .author-main {
+    text-align: center;
+    font-size: 0.7rem;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+  }
+  .input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .input-group {
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  input, select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: right;
+  }
+  button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #28a745;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #218838;
+  }
+  #result {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    text-align: center;
+    border: 2px solid #0077b6;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+    background: white;
+    margin-top: 20px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+  }
+  th {
+    background: #0077b6;
+    color: white;
+    font-size: 0.9rem;
+  }
+  .red-cell {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    font-weight: bold;
+  }
+  .action-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .action-buttons button {
+    width: auto;
+    padding: 8px 15px;
+    font-weight: bold;
+    border-radius: 6px;
+  }
+  .share-btn { background: #0077b6; }
+  .share-btn:hover { background: #005a8d; }
+  .print-btn { background: #6c757d; }
+  .print-btn:hover { background: #5a6268; }
+
+  .product-name-unit {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .product-name-unit label {
+    margin: 0 5px;
+    min-width: 100px;
+  }
+  .product-name-unit input {
+    flex: 1;
+    min-width: 150px;
+  }
+  .product-name-unit select { /* استایل دهی به select */
+    flex: 1; /* اجازه می دهد تا عرض بیشتری بگیرد */
+    min-width: 150px; /* حداقل عرض */
+    width: auto; /* اجازه می دهد تا عرض محتوا را بگیرد */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: right; /* متن از راست به چپ */
+  }
+
+  footer.main-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 0.8em;
+    color: #555;
+    font-family: 'Vazirmatn', sans-serif;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+  }
+
+  /* هدر و فوتر مخصوص پرینت مخفی در حالت عادی */
+  #printHeader, #printFooter {
+    display: none;
+  }
+
+  /* تنظیمات مخصوص پرینت */
+  @media print {
+    @page {
+      margin: 10mm; /* حاشیه صفحه */
+      size: A4; /* حالت عمودی */
+    }
+    body {
+      margin: 0;
+      background: white;
+      color: black;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 11px; /* فونت کلی */
     }
 
-  </style>
+    /* مخفی کردن عناصر غیرضروری در پرینت */
+    .header-container, footer.main-footer, .controls, .action-buttons {
+      display: none !important;
+    }
+
+    /* نمایش فوتر مخصوص پرینت */
+    #printFooter {
+      display: flex !important;
+      position: fixed;
+      bottom: 10mm;
+      left: 10mm;
+      right: 10mm;
+      font-size: 0.8em;
+      color: #555;
+      justify-content: space-between;
+      font-family: 'Vazirmatn', sans-serif;
+      background: white;
+      padding-top: 5px;
+    }
+
+    /* نمایش جدول و کانتینر در پرینت */
+    #tableContainer {
+      display: block !important;
+      margin-top: 0;
+      width: 100%;
+    }
+
+    /* استایل جدید برای عنوان گزارش بالای جدول */
+    .report-title {
+        text-align: center;
+        margin-bottom: 8px; /* فاصله کمتر از جدول */
+        font-weight: 700;
+        font-size: 1.05rem;
+    }
+    .report-title #reportTitle { /* برای عنوان اصلی */
+        display: block !important;
+        margin-bottom: 4px; /* فاصله کمتر */
+        font-size: 1.15rem;
+    }
+    .report-title .reportDate { /* برای تاریخ */
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 4px; /* فاصله کمتر */
+    }
+
+    #resultsTable {
+      display: table !important;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9px; /* فونت جدول کوچکتر */
+    }
+    #resultsTable th, #resultsTable td {
+      border: 1px solid #000 !important;
+      padding: 3px !important; /* padding کمتر */
+      background: #fff !important;
+      color: #000 !important;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* مخفی کردن کادر نتیجه در پرینت */
+    #result {
+      display: none !important;
+    }
+  }
+</style>
 </head>
 <body>
-<header>
-  <h1>محاسبه درصد درگیری</h1>
-  <p style="margin:4px 0 0;">Mosayeb Khani</p>
-</header>
 
-<div class="controls">
-  <select id="unitSelect">
-    <option value="thou">0.001 اینچ</option>
-    <option value="mm">میلیمتر</option>
-  </select>
-</div>
-
-<div class="input-grid">
-  <div class="input-group"><label>طول دوخت (SL)</label><input type="number" id="length" step="0.01"></div>
-  <div class="input-group"><label>ضخامت دوخت (ST)</label><input type="number" id="seamThickness" step="0.01"></div>
-  <div class="input-group"><label>قلاب درب (CH)</label><input type="number" id="coverHook" step="0.01"></div>
-  <div class="input-group"><label>قلاب بدنه (BH)</label><input type="number" id="bodyHook" step="0.01"></div>
-  <div class="input-group"><label>ضخامت سر (Te)</label><input type="number" id="headThickness" step="0.01" ></div>
-  <div class="input-group"><label>ضخامت بدنه (Tb)</label><input type="number" id="bodyThickness" step="0.01" ></div>
-</div>
-
-<button onclick="calculate()" class="btn-primary" style="width:100%; padding:16px; font-size:18px;">محاسبه</button>
-
-<div id="result" style="display:none;"></div>
-
-<div id="tableContainer" style="display:none;">
-  <div class="print-only">
-    <h3>گزارش محاسبات</h3>
-    <p>تاریخ: <span id="printDate"></span></p>
+<div class="content-wrap">
+  <div class="header-container">
+    <div class="header-main">محاسبه درصد درگیری (Overlap%)</div>
+    <div class="author-main">طراحی و ساخت برنامه: Mosayeb Khani</div>
   </div>
-  
-  <h3 style="margin:20px 0 10px;">نتایج ذخیره‌شده</h3>
-  <table id="resultsTable">
-    <thead>
-      <tr>
-        <th>شماره قالب</th>
-        <th>OL%</th>
-        <th>CHook</th>
-        <th>BHook</th>
-        <th>Diff H</th>
-        <th>Free S</th>
-        <th>عملیات</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  
-  <div class="print-only footer-print">طراحی توسط: Mosayeb Khani  تماس: 09173206052</div>
+
+  <div class="controls">
+    <div class="product-name-unit">
+      <label for="productName">نام محصول</label>
+      <select id="productNameSelect">
+        <option value="">-- انتخاب کنید --</option>
+        <option value="قوطی 400 گرمی ساده/چاپدار">قوطی 400 گرمی ساده/چاپدار</option>
+        <option value="قوطی 420 گرمی ساده/چاپدار">قوطی 420 گرمی ساده/چاپدار</option>
+        <option value="قوطی 770 گرمی ساده/چاپدار">قوطی 770 گرمی ساده/چاپدار</option>
+        <option value="قوطی 800 گرمی ساده/چاپدار">قوطی 800 گرمی ساده/چاپدار</option>
+        <option value="قوطی 4000 گرمی ساده/چاپدار">قوطی 4000 گرمی ساده/چاپدار</option>
+        <option value="حلب 16 کیلویی ساده/چاپدار">حلب 16 کیلویی ساده/چاپدار</option>
+      </select>
+      <label for="unitSelect">واحد اندازه‌گیری</label>
+      <select id="unitSelect">
+        <option value="mil">هزارم اینچ</option>
+        <option value="mm">میلیمتر</option>
+      </select>
+    </div>
+
+    <div class="input-grid">
+      <div class="input-group"><label>SLطول دوخت</label><input type="number" id="length" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label>STضخامت</label><input type="number" id="seamThickness" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label>CHقلاب در</label><input type="number" id="coverHook" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label>BHقلاب بدنه</label><input type="number" id="bodyHook" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label>Teضخامت سر</label><input type="number" id="headThickness" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label>Tbضخامت بدنه</label><input type="number" id="bodyThickness" step="0.01" autocomplete="off" /></div>
+    </div>
+    <button onclick="calculate()">محاسبه</button>
+  </div>
+
+  <div id="result" style="display:none;"></div>
+
+  <div id="tableContainer" style="display:none;">
+    <!-- عنوان گزارش بالای جدول -->
+    <div id="reportTitleContainer" class="report-title">
+        <div id="reportTitle"></div>
+        <div class="reportDate"></div>
+    </div>
+
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>قالب</th> <!-- !!! تغییر: عنوان ستون به 'قالب' تغییر کرد -->
+          <th>sl</th>
+          <th>st</th>
+          <th>ch</th>
+          <th>bh</th>
+          <th>te</th>
+          <th>tb</th>
+          <th>diff</th>
+          <th>free</th>
+          <th>%ol</th>
+          <th>وضعیت</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div class="action-buttons">
+      <button class="share-btn" onclick="shareAll()">اشتراک‌گذاری</button>
+      <button class="print-btn" onclick="printReport()">چاپ گزارش</button>
+    </div>
+  </div>
 </div>
 
-
-
-<div class="footer-btns">
-  <button onclick="resetForm()" class="btn-secondary">پاک کردن فرم</button>
-  <button onclick="shareAll()" id="shareAllBtn" style="display:none;" class="btn-primary">اشتراک‌گذاری جدول</button>
-  <button onclick="triggerPrint()" class="btn-primary" style="background: #6c127d; color: white;">پرینت گزارش</button>
+<!-- فوتر مخصوص پرینت -->
+<div id="printFooter" aria-hidden="true" role="contentinfo" class="main-footer">
+  <span>Mosayeb Khani - mosayeb872@gmail.com</span>
+  <span>انتشار این برنامه مجاز است</span>
 </div>
+
+<!-- فوتر صفحه اصلی -->
+<footer class="main-footer" role="contentinfo">
+  <span>Mosayeb Khani - mosayeb872@gmail.com</span>
+  <span>انتشار این برنامه مجاز است</span>
+</footer>
 
 <script>
-  let results = JSON.parse(localStorage.getItem('overlapResults')) || [];
-  const LIMITS = { CH_MIN: 70, BH_MIN: 70, DIFF_MAX: 7.8, FREE_MAX: 7.5, OL_MIN: 45 };
+  const THRESHOLD_MIL = 7.5;
+  const MIL_TO_MM = 0.0254;
+  const THRESHOLD_MM = THRESHOLD_MIL * MIL_TO_MM;
 
-  function triggerPrint() {
-      document.getElementById('printDate').textContent = new Date().toLocaleDateString('fa-IR');
-      window.print();
-  }
-
-  function toThou(mm) { return mm / 0.0254; }
-  function saveToLocal() { localStorage.setItem('overlapResults', JSON.stringify(results)); }
-  
-  function renderTable() {
-    const tbody = document.querySelector('#resultsTable tbody');
-    tbody.innerHTML = '';
-    document.getElementById('tableContainer').style.display = results.length ? 'block' : 'none';
-    document.getElementById('shareAllBtn').style.display = results.length ? 'inline-block' : 'none';
-    results.forEach((r, index) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><strong>${r.name}</strong></td>
-        <td class="${r.ol >= LIMITS.OL_MIN ? 'good' : 'bad'}">${r.ol}%</td>
-        <td>${r.ch}</td>
-        <td>${r.bh}</td>
-        <td>${r.diff}</td>
-        <td>${r.free}</td>
-        <td><button class="delete-btn" onclick="deleteResult(${index})">حذف</button></td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
+  let lastCalculation = null;
+  let moldCounter = 0; // !!! اضافه شدن شمارنده قالب
 
   function calculate() {
+    const productName = document.getElementById('productNameSelect').value;
     const unit = document.getElementById('unitSelect').value;
+
     let L = parseFloat(document.getElementById('length').value);
     let ST = parseFloat(document.getElementById('seamThickness').value);
     let CH = parseFloat(document.getElementById('coverHook').value);
     let BH = parseFloat(document.getElementById('bodyHook').value);
     let Te = parseFloat(document.getElementById('headThickness').value);
     let Tb = parseFloat(document.getElementById('bodyThickness').value);
-    if ([L, ST, CH, BH, Te, Tb].some(v => isNaN(v) || v <= 0)) { alert('لطفاً همه مقادیر را وارد کنید'); return; }
-    if (unit === 'mm') { L = toThou(L); ST = toThou(ST); CH = toThou(CH); BH = toThou(BH); Te = toThou(Te); Tb = toThou(Tb); }
-    const diff = Math.abs(CH - BH).toFixed(2);
-    const free = Math.abs(ST - (3 * Te + 2 * Tb)).toFixed(2);
-    const denom = L - (2.2 * Te + 1.1 * Tb);
-    const overlap = denom ? Math.abs((L - (CH + BH + 1.1 * Te)) / denom * 100).toFixed(1) : 0;
-    const resultHTML = `
-      <strong>درصد درگیری: <span class="${overlap >= LIMITS.OL_MIN ? 'good' : 'bad'}" style="font-size:2.2rem;">${overlap}%</span></strong><br><br>
-      <div style="text-align:right; font-size:15px; line-height:1.8;">
-        اختلاف قلاب: <strong>${diff}</strong><br>
-        فضای آزاد: <strong>${free}</strong><br>
-        واحد: <strong>${unit === 'mm' ? 'میلیمتر' : '0.001 اینچ'}</strong>
-      </div>
-      <button onclick="saveCurrentResult(${overlap}, ${diff}, ${free}, ${CH.toFixed(1)}, ${BH.toFixed(1)})"
-              class="btn-primary" style="margin-top:16px; width:100%;">ذخیره این نتیجه</button>
+
+    if (!productName) {
+      alert('لطفا نام محصول را از لیست انتخاب کنید.');
+      return;
+    }
+    if ([L, ST, CH, BH, Te, Tb].some(v => isNaN(v))) {
+      alert('لطفا تمامی مقادیر را کامل و صحیح وارد کنید.');
+      return;
+    }
+
+    // !!! نام محصول برای ذخیره در lastCalculation استفاده می شود
+    const selectedProductName = productName;
+
+    const diff = Math.abs(CH - BH);
+    const free = ST - (3 * Te + 2 * Tb);
+
+    const numerator = L - (CH + BH + 1.1 * Te);
+    const denominator = L - (2.2 * Te + 1.1 * Tb);
+    let ol = 0;
+    if (denominator !== 0) {
+        ol = Math.abs(numerator / denominator) * 100;
+    } else if (numerator === 0) {
+        ol = 0;
+    } else {
+        ol = Infinity;
+    }
+
+    const status = free <= 0 ? 'احتمال بریدگی دوخت' : 'عادی';
+
+    const thresholdDiff = unit === 'mm' ? THRESHOLD_MM : THRESHOLD_MIL;
+    const thresholdFree = thresholdDiff;
+
+    const tbody = document.querySelector('#resultsTable tbody');
+    document.getElementById('tableContainer').style.display = 'block';
+
+    const olClass = (ol < 45 || ol > 75 || ol === Infinity) ? 'red-cell' : '';
+    const freeClass = (free < 0) ? 'red-cell' : '';
+    const diffClass = (diff > thresholdDiff) ? 'red-cell' : '';
+
+    moldCounter++; // !!! افزایش شمارنده قالب
+    const moldId = `P-${moldCounter}`; // !!! ساخت شناسه قالب
+
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td>${moldId}</td> <!-- !!! نمایش شناسه قالب به جای نام محصول -->
+      <td>${L.toFixed(2)}</td>
+      <td>${ST.toFixed(2)}</td>
+      <td>${CH.toFixed(2)}</td>
+      <td>${BH.toFixed(2)}</td>
+      <td>${Te.toFixed(2)}</td>
+      <td>${Tb.toFixed(2)}</td>
+      <td class="${diffClass}">${diff.toFixed(2)}</td>
+      <td class="${freeClass}">${free.toFixed(2)}</td>
+      <td class="${olClass}">${ol === Infinity ? 'نامحدود' : ol.toFixed(1) + '%'}</td>
+      <td>${status}</td>
     `;
-    document.getElementById('result').innerHTML = resultHTML;
-    document.getElementById('result').style.display = 'block';
-  }
+    tbody.appendChild(newRow);
 
-  function saveCurrentResult(ol, diff, free, ch, bh) {
-    let name = prompt('نام این نمونه را وارد کنید:', `p${results.length + 1}`);
-    if (!name) name = `p${results.length + 1}`;
-    results.push({ name: name, ol: parseFloat(ol), diff: parseFloat(diff), free: parseFloat(free), ch: parseFloat(ch), bh: parseFloat(bh), timestamp: new Date().toLocaleString('fa-IR') });
-    saveToLocal(); renderTable(); alert('نتیجه با موفقیت ذخیره شد'); clearInputsAfterSave();
-  }
+    // !!! ذخیره نام محصول در lastCalculation برای استفاده در گزارش چاپی
+    lastCalculation = { productName: selectedProductName, ol: ol === Infinity ? 'نامحدود' : ol.toFixed(1) + '%', status };
 
-  function clearInputsAfterSave() {
+    const resDiv = document.getElementById('result');
+    resDiv.style.display = 'block';
+    resDiv.innerHTML = `<strong>نتیجه: ${ol === Infinity ? 'نامحدود' : ol.toFixed(1) + '%'}</strong><br><strong>وضعیت: ${status}</strong>`;
+
     document.getElementById('length').value = '';
     document.getElementById('seamThickness').value = '';
     document.getElementById('coverHook').value = '';
     document.getElementById('bodyHook').value = '';
     document.getElementById('length').focus();
-  }
 
-  function deleteResult(index) {
-    if (confirm('این نتیجه حذف شود؟')) { results.splice(index, 1); saveToLocal(); renderTable(); }
+    // !!! نام محصول نباید پاک شود، بنابراین اینجا هم تغییری اعمال نمی کنیم
   }
 
   async function shareAll() {
-    if (results.length === 0) return;
-    let text = `گزارش درصد درگیری دربندی\n\n`;
-    results.forEach(r => { text += `${r.name}:\n OL% = ${r.ol}%\n CH = ${r.ch} | BH = ${r.bh}\n Diff = ${r.diff} | Free = ${r.free}\n\n`; });
-    text += `تعداد نمونه: ${results.length}\nاشتراک‌گذاری شده از ابزار موبایل`;
-    if (navigator.share) { try { await navigator.share({ title: 'گزارش درصد درگیری', text: text }); } catch { copyToClipboard(text); } } else { copyToClipboard(text); }
+    const unit = document.getElementById('unitSelect').value;
+    const tbody = document.querySelector('#resultsTable tbody');
+    if (tbody.children.length === 0) {
+      alert('هیچ داده‌ای برای اشتراک‌گذاری وجود ندارد.');
+      return;
+    }
+
+    let unitLabel = unit === 'mil' ? 'هزارم اینچ' : 'میلیمتر';
+    let text = `گزارش درگیری (Overlap%)\nواحد اندازه‌گیری: ${unitLabel}\n\n`;
+
+    for (let row of tbody.children) {
+      const cells = row.cells;
+      // !!! برای اشتراک گذاری، از نام محصول (که در lastCalculation ذخیره شده) استفاده می کنیم
+      text += `قالب: ${cells[0].innerText} (محصول: ${lastCalculation.productName}), sl: ${cells[1].innerText}, st: ${cells[2].innerText}, ch: ${cells[3].innerText}, bh: ${cells[4].innerText}, te: ${cells[5].innerText}, tb: ${cells[6].innerText}, diff: ${cells[7].innerText}, free: ${cells[8].innerText}, %ol: ${cells[9].innerText}, وضعیت: ${cells[10].innerText}\n`;
+    }
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'گزارش درگیری (Overlap%)',
+          text: text
+        });
+      } catch (err) {
+        console.error('Error sharing:', err);
+        alert('اشتراک‌گذاری انجام نشد.');
+      }
+    } else {
+      alert('اشتراک‌گذاری از طریق مرورگر پشتیبانی نمی‌شود. متن گزارش:\n\n' + text);
+    }
   }
 
-  function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { alert('جدول در کلیپ‌بورد کپی شد'); }); }
-
-  function resetForm() {
-    document.getElementById('length').value = ''; document.getElementById('seamThickness').value = '';
-    document.getElementById('coverHook').value = ''; document.getElementById('bodyHook').value = '';
-    document.getElementById('result').style.display = 'none';
+  function getPersianDate() {
+    const today = new Date();
+    try {
+      return new Intl.DateTimeFormat('fa-IR-u-ca-persian', { year: 'numeric', month: 'long', day: 'numeric' }).format(today);
+    } catch {
+      return today.toLocaleDateString('fa-IR');
+    }
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
-  renderTable();
+  function printReport() {
+    if (!lastCalculation) {
+      alert('لطفا ابتدا یک محاسبه انجام دهید تا گزارشی برای پرینت وجود داشته باشد.');
+      return;
+    }
+
+    // !!! در عنوان گزارش چاپی، نام محصول (که در lastCalculation ذخیره شده) نمایش داده می شود
+    document.getElementById('reportTitle').textContent = `گزارش محاسبات محصول: ${lastCalculation.productName}`;
+    document.querySelector('#reportTitleContainer .reportDate').textContent = `تاریخ گزارش: ${getPersianDate()}`;
+
+    document.getElementById('tableContainer').style.display = 'block';
+
+    window.print();
+  }
 </script>
+
 </body>
 </html>
