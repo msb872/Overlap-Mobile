@@ -4,8 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="me.png">
-<title>Overlap%</title>
+<title>Overlap% - Mosayeb Khani</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
 
@@ -145,15 +144,15 @@
     flex: 1;
     min-width: 150px;
   }
-  .product-name-unit select { /* استایل دهی به select */
-    flex: 1; /* اجازه می دهد تا عرض بیشتری بگیرد */
-    min-width: 150px; /* حداقل عرض */
-    width: auto; /* اجازه می دهد تا عرض محتوا را بگیرد */
+  .product-name-unit select {
+    flex: 1;
+    min-width: 150px;
+    width: auto;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    text-align: right; /* متن از راست به چپ */
+    text-align: right;
   }
 
   footer.main-footer {
@@ -167,31 +166,27 @@
     border-top: 1px solid #ccc;
   }
 
-  /* هدر و فوتر مخصوص پرینت مخفی در حالت عادی */
   #printHeader, #printFooter {
     display: none;
   }
 
-  /* تنظیمات مخصوص پرینت */
   @media print {
     @page {
-      margin: 10mm; /* حاشیه صفحه */
-      size: A4; /* حالت عمودی */
+      margin: 10mm;
+      size: A4;
     }
     body {
       margin: 0;
       background: white;
       color: black;
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 11px; /* فونت کلی */
+      font-size: 11px;
     }
 
-    /* مخفی کردن عناصر غیرضروری در پرینت */
     .header-container, footer.main-footer, .controls, .action-buttons {
       display: none !important;
     }
 
-    /* نمایش فوتر مخصوص پرینت */
     #printFooter {
       display: flex !important;
       position: fixed;
@@ -206,47 +201,44 @@
       padding-top: 5px;
     }
 
-    /* نمایش جدول و کانتینر در پرینت */
     #tableContainer {
       display: block !important;
       margin-top: 0;
       width: 100%;
     }
 
-    /* استایل جدید برای عنوان گزارش بالای جدول */
     .report-title {
-        text-align: center;
-        margin-bottom: 8px; /* فاصله کمتر از جدول */
-        font-weight: 700;
-        font-size: 1.05rem;
+      text-align: center;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 1.05rem;
     }
-    .report-title #reportTitle { /* برای عنوان اصلی */
-        display: block !important;
-        margin-bottom: 4px; /* فاصله کمتر */
-        font-size: 1.15rem;
+    .report-title #reportTitle {
+      display: block !important;
+      margin-bottom: 4px;
+      font-size: 1.15rem;
     }
-    .report-title .reportDate { /* برای تاریخ */
+    .report-title .reportDate {
       font-size: 0.95rem;
       color: #555;
-      margin-top: 4px; /* فاصله کمتر */
+      margin-top: 4px;
     }
 
     #resultsTable {
       display: table !important;
       width: 100%;
       border-collapse: collapse;
-      font-size: 9px; /* فونت جدول کوچکتر */
+      font-size: 9px;
     }
     #resultsTable th, #resultsTable td {
       border: 1px solid #000 !important;
-      padding: 3px !important; /* padding کمتر */
+      padding: 3px !important;
       background: #fff !important;
       color: #000 !important;
       white-space: nowrap;
       text-align: center;
     }
 
-    /* مخفی کردن کادر نتیجه در پرینت */
     #result {
       display: none !important;
     }
@@ -281,12 +273,12 @@
     </div>
 
     <div class="input-grid">
-      <div class="input-group"><label>SLطول دوخت</label><input type="number" id="length" step="0.01" autocomplete="off" /></div>
-      <div class="input-group"><label>STضخامت</label><input type="number" id="seamThickness" step="0.01" autocomplete="off" /></div>
-      <div class="input-group"><label>CHقلاب در</label><input type="number" id="coverHook" step="0.01" autocomplete="off" /></div>
-      <div class="input-group"><label>BHقلاب بدنه</label><input type="number" id="bodyHook" step="0.01" autocomplete="off" /></div>
-      <div class="input-group"><label>Teضخامت سر</label><input type="number" id="headThickness" step="0.01" autocomplete="off" /></div>
-      <div class="input-group"><label>Tbضخامت بدنه</label><input type="number" id="bodyThickness" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label for="length">SL طول دوخت</label><input type="number" id="length" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label for="seamThickness">ST ضخامت</label><input type="number" id="seamThickness" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label for="coverHook">CH قلاب در</label><input type="number" id="coverHook" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label for="bodyHook">BH قلاب بدنه</label><input type="number" id="bodyHook" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label for="headThickness">Te ضخامت سر</label><input type="number" id="headThickness" step="0.01" autocomplete="off" /></div>
+      <div class="input-group"><label for="bodyThickness">Tb ضخامت بدنه</label><input type="number" id="bodyThickness" step="0.01" autocomplete="off" /></div>
     </div>
     <button onclick="calculate()">محاسبه</button>
   </div>
@@ -294,7 +286,6 @@
   <div id="result" style="display:none;"></div>
 
   <div id="tableContainer" style="display:none;">
-    <!-- عنوان گزارش بالای جدول -->
     <div id="reportTitleContainer" class="report-title">
         <div id="reportTitle"></div>
         <div class="reportDate"></div>
@@ -303,7 +294,7 @@
     <table id="resultsTable">
       <thead>
         <tr>
-          <th>قالب</th> <!-- !!! تغییر: عنوان ستون به 'قالب' تغییر کرد -->
+          <th>قالب</th>
           <th>sl</th>
           <th>st</th>
           <th>ch</th>
@@ -326,13 +317,11 @@
   </div>
 </div>
 
-<!-- فوتر مخصوص پرینت -->
 <div id="printFooter" aria-hidden="true" role="contentinfo" class="main-footer">
   <span>Mosayeb Khani - mosayeb872@gmail.com</span>
   <span>انتشار این برنامه مجاز است</span>
 </div>
 
-<!-- فوتر صفحه اصلی -->
 <footer class="main-footer" role="contentinfo">
   <span>Mosayeb Khani - mosayeb872@gmail.com</span>
   <span>انتشار این برنامه مجاز است</span>
@@ -343,8 +332,12 @@
   const MIL_TO_MM = 0.0254;
   const THRESHOLD_MM = THRESHOLD_MIL * MIL_TO_MM;
 
+  // مقدار حداقل قلاب (70 هزارم اینچ)
+  const MIN_HOOK_MIL = 70;
+  const MIN_HOOK_MM = MIN_HOOK_MIL * MIL_TO_MM;
+
   let lastCalculation = null;
-  let moldCounter = 0; // !!! اضافه شدن شمارنده قالب
+  let moldCounter = 0;
 
   function calculate() {
     const productName = document.getElementById('productNameSelect').value;
@@ -366,7 +359,6 @@
       return;
     }
 
-    // !!! نام محصول برای ذخیره در lastCalculation استفاده می شود
     const selectedProductName = productName;
 
     const diff = Math.abs(CH - BH);
@@ -383,10 +375,35 @@
         ol = Infinity;
     }
 
-    const status = free <= 0 ? 'احتمال بریدگی دوخت' : 'عادی';
-
     const thresholdDiff = unit === 'mm' ? THRESHOLD_MM : THRESHOLD_MIL;
-    const thresholdFree = thresholdDiff;
+    const minHook = unit === 'mm' ? MIN_HOOK_MM : MIN_HOOK_MIL;
+
+    // جمع آوری همه مغایرت ها در آرایه
+    let issues = [];
+    if (free < 0) {
+      issues.push('احتمال بریدگی دوخت');
+    }
+    if (ol < 45) {
+      issues.push('پایین بودن درصد درگیر- احتمال نشتی');
+    }
+    if (diff > thresholdDiff) {
+      issues.push('احتمال چروکیدگی دوخت');
+      issues.push('بالا بودن اختلاف قلاب');
+    }
+
+    // تفکیک پایین بودن هر قلاب و کلاس رنگی جداگانه
+    let chLow = false;
+    let bhLow = false;
+    if (CH < minHook) {
+      issues.push('پایین بودن قلاب در');
+      chLow = true;
+    }
+    if (BH < minHook) {
+      issues.push('پایین بودن قلاب بدنه');
+      bhLow = true;
+    }
+
+    const status = issues.length === 0 ? 'مناسب' : issues.join('، ');
 
     const tbody = document.querySelector('#resultsTable tbody');
     document.getElementById('tableContainer').style.display = 'block';
@@ -394,17 +411,19 @@
     const olClass = (ol < 45 || ol > 75 || ol === Infinity) ? 'red-cell' : '';
     const freeClass = (free < 0) ? 'red-cell' : '';
     const diffClass = (diff > thresholdDiff) ? 'red-cell' : '';
+    const chClass = chLow ? 'red-cell' : '';
+    const bhClass = bhLow ? 'red-cell' : '';
 
-    moldCounter++; // !!! افزایش شمارنده قالب
-    const moldId = `P-${moldCounter}`; // !!! ساخت شناسه قالب
+    moldCounter++;
+    const moldId = `P-${moldCounter}`;
 
     const newRow = document.createElement('tr');
     newRow.innerHTML = `
-      <td>${moldId}</td> <!-- !!! نمایش شناسه قالب به جای نام محصول -->
+      <td>${moldId}</td>
       <td>${L.toFixed(2)}</td>
       <td>${ST.toFixed(2)}</td>
-      <td>${CH.toFixed(2)}</td>
-      <td>${BH.toFixed(2)}</td>
+      <td class="${chClass}">${CH.toFixed(2)}</td>
+      <td class="${bhClass}">${BH.toFixed(2)}</td>
       <td>${Te.toFixed(2)}</td>
       <td>${Tb.toFixed(2)}</td>
       <td class="${diffClass}">${diff.toFixed(2)}</td>
@@ -414,7 +433,6 @@
     `;
     tbody.appendChild(newRow);
 
-    // !!! ذخیره نام محصول در lastCalculation برای استفاده در گزارش چاپی
     lastCalculation = { productName: selectedProductName, ol: ol === Infinity ? 'نامحدود' : ol.toFixed(1) + '%', status };
 
     const resDiv = document.getElementById('result');
@@ -426,8 +444,6 @@
     document.getElementById('coverHook').value = '';
     document.getElementById('bodyHook').value = '';
     document.getElementById('length').focus();
-
-    // !!! نام محصول نباید پاک شود، بنابراین اینجا هم تغییری اعمال نمی کنیم
   }
 
   async function shareAll() {
@@ -443,7 +459,6 @@
 
     for (let row of tbody.children) {
       const cells = row.cells;
-      // !!! برای اشتراک گذاری، از نام محصول (که در lastCalculation ذخیره شده) استفاده می کنیم
       text += `قالب: ${cells[0].innerText} (محصول: ${lastCalculation.productName}), sl: ${cells[1].innerText}, st: ${cells[2].innerText}, ch: ${cells[3].innerText}, bh: ${cells[4].innerText}, te: ${cells[5].innerText}, tb: ${cells[6].innerText}, diff: ${cells[7].innerText}, free: ${cells[8].innerText}, %ol: ${cells[9].innerText}, وضعیت: ${cells[10].innerText}\n`;
     }
 
@@ -477,7 +492,6 @@
       return;
     }
 
-    // !!! در عنوان گزارش چاپی، نام محصول (که در lastCalculation ذخیره شده) نمایش داده می شود
     document.getElementById('reportTitle').textContent = `گزارش محاسبات محصول: ${lastCalculation.productName}`;
     document.querySelector('#reportTitleContainer .reportDate').textContent = `تاریخ گزارش: ${getPersianDate()}`;
 
