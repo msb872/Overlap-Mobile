@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -125,34 +124,27 @@
   .print-btn { background: #6c757d; }
   .print-btn:hover { background: #5a6268; }
 
+  /* تغییرات برای چیدمان عمودی نام محصول و واحد اندازه گیری */
   .product-name-unit {
     background: white;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 15px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column; /* چیدمان عمودی */
+    gap: 15px;
+    max-width: 350px; /* عرض مناسب برای فرم */
+    margin-left: auto;
+    margin-right: auto; /* وسط‌چین کردن */
+  }
+  .input-block {
+    display: flex;
+    flex-direction: column;
   }
   .product-name-unit label {
-    margin: 0 5px;
-    min-width: 100px;
-  }
-  .product-name-unit input {
-    flex: 1;
-    min-width: 150px;
-  }
-  .product-name-unit select {
-    flex: 1;
-    min-width: 150px;
-    width: auto;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    text-align: right;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
   }
 
   footer.main-footer {
@@ -255,21 +247,25 @@
 
   <div class="controls">
     <div class="product-name-unit">
-      <label for="productName">نام محصول</label>
-      <select id="productNameSelect">
-        <option value="">-- انتخاب کنید --</option>
-        <option value="قوطی 400 گرمی ساده/چاپدار">قوطی 400 گرمی ساده/چاپدار</option>
-        <option value="قوطی 420 گرمی ساده/چاپدار">قوطی 420 گرمی ساده/چاپدار</option>
-        <option value="قوطی 770 گرمی ساده/چاپدار">قوطی 770 گرمی ساده/چاپدار</option>
-        <option value="قوطی 800 گرمی ساده/چاپدار">قوطی 800 گرمی ساده/چاپدار</option>
-        <option value="قوطی 4000 گرمی ساده/چاپدار">قوطی 4000 گرمی ساده/چاپدار</option>
-        <option value="حلب 16 کیلویی ساده/چاپدار">حلب 16 کیلویی ساده/چاپدار</option>
-      </select>
-      <label for="unitSelect">واحد اندازه‌گیری</label>
-      <select id="unitSelect">
-        <option value="mil">هزارم اینچ</option>
-        <option value="mm">میلیمتر</option>
-      </select>
+      <div class="input-block">
+        <label for="productNameSelect">نام محصول</label>
+        <select id="productNameSelect">
+          <option value="">-- انتخاب کنید --</option>
+          <option value="قوطی 400 گرمی ساده/چاپدار">قوطی 400 گرمی ساده/چاپدار</option>
+          <option value="قوطی 420 گرمی ساده/چاپدار">قوطی 420 گرمی ساده/چاپدار</option>
+          <option value="قوطی 770 گرمی ساده/چاپدار">قوطی 770 گرمی ساده/چاپدار</option>
+          <option value="قوطی 800 گرمی ساده/چاپدار">قوطی 800 گرمی ساده/چاپدار</option>
+          <option value="قوطی 4000 گرمی ساده/چاپدار">قوطی 4000 گرمی ساده/چاپدار</option>
+          <option value="حلب 16 کیلویی ساده/چاپدار">حلب 16 کیلویی ساده/چاپدار</option>
+        </select>
+      </div>
+      <div class="input-block">
+        <label for="unitSelect">واحد اندازه‌گیری</label>
+        <select id="unitSelect">
+          <option value="mil">هزارم اینچ</option>
+          <option value="mm">میلیمتر</option>
+        </select>
+      </div>
     </div>
 
     <div class="input-grid">
@@ -384,7 +380,7 @@
       issues.push('احتمال بریدگی دوخت');
     }
     if (ol < 45) {
-      issues.push('پایین بودن درصد درگیر- احتمال نشتی');
+      issues.push('احتمال نشتی');
     }
     if (diff > thresholdDiff) {
       issues.push('احتمال چروکیدگی دوخت');
